@@ -1,0 +1,37 @@
+{
+  "eval_id": 1,
+  "eval_name": "quick-project-overview",
+  "prompt": "我刚刚下载了一个开源项目 expressjs/express，想快速了解它的核心功能和架构。我只需要一个快速的概览，不需要深入所有细节，大约 15-20 分钟的学习量。",
+  "assertions": [
+    {
+      "name": "provides_quick_overview",
+      "description": "应提供快速概览，适合15-20分钟学习",
+      "check_type": "contains_keywords",
+      "keywords": ["Express", "Node.js", "框架", "web", "HTTP"]
+    },
+    {
+      "name": "lists_core_features",
+      "description": "应列出项目的核心功能",
+      "check_type": "has_structure",
+      "structure_indicators": ["功能", "特性", "features", "核心"]
+    },
+    {
+      "name": "provides_exploration_commands",
+      "description": "应提供命令让用户快速探索项目",
+      "check_type": "contains_commands",
+      "command_patterns": ["cat ", "ls ", "grep "]
+    },
+    {
+      "name": "suggests_next_steps",
+      "description": "应建议进一步深入的学习方向",
+      "check_type": "contains_keywords",
+      "keywords": ["下一步", "深入", "建议", "学习", "方向"]
+    },
+    {
+      "name": "appropriate_length",
+      "description": "输出应该简洁，不是长篇大论（适合快速概览）",
+      "check_type": "appropriate_length",
+      "max_words": 800
+    }
+  ]
+}
