@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "project_name": "",
+    "github_url": "",
+    "started_at": "",
+    "last_accessed": "",
+    "total_time_minutes": 0
+  },
+  "progress": {
+    "current_stage": "stage0",
+    "stages_completed": [],
+    "understanding_level": "beginner",
+    "completion_percentage": 0
+  },
+  "learning_stats": {
+    "questions_asked": 0,
+    "files_explored": 0,
+    "concepts_covered": [],
+    "aha_moments": 0
+  },
+  "milestones": {
+    "first_run_achieved": false,
+    "readme_understood": false,
+    "architecture_grasped": false,
+    "implementation_explored": false,
+    "ready_to_contribute": false
+  },
+  "next_steps": {
+    "immediate": "",
+    "short_term": [],
+    "long_term": []
+  },
+  "context": {
+    "primary_goal": "",
+    "areas_of_interest": [],
+    "skip_topics": [],
+    "learning_style": "conversational"
+  }
+}

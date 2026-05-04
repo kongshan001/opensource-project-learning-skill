@@ -16,6 +16,8 @@ This skill provides a **dialogue-driven approach** to learning any open-source p
 - **Usage-first philosophy**: Run projects before reading documentation
 - **Adaptive depth**: Adjusts to your experience level and interests
 - **Universal applicability**: Works with web apps, backend services, CLI tools, plugins, etc.
+- **🆕 Automatic learning archives**: Tracks your progress, saves key insights, enables resume capability
+- **🆕 Searchable knowledge base**: Quick recall of what you've learned across projects
 
 ## 🚀 Quick Start
 
@@ -103,10 +105,21 @@ Ready to try?"
 
 ```
 opensource-project-learning-skill/
-├── README.md              # This file
-├── SKILL.md              # Complete skill specification
-├── LICENSE               # MIT License
-└── .gitignore           # Git ignore rules
+├── README.md                      # This file
+├── SKILL.md                      # Complete skill specification
+├── QUICKSTART.md                 # Quick start guide
+├── CONTRIBUTING.md               # Contribution guidelines
+├── LICENSE                       # MIT License
+├── .gitignore                    # Git ignore rules
+├── templates/                    # Learning archive templates
+│   ├── learning-archive-system.md
+│   ├── archive-extension.md
+│   ├── summary-template.md
+│   ├── key-points-template.md
+│   └── progress-template.json
+└── examples/                     # Real learning examples
+    ├── claude-hud-learning-example.md
+    └── learning-archive-example/ # Complete archive from real session
 ```
 
 ### Key Principles
@@ -116,6 +129,73 @@ opensource-project-learning-skill/
 3. **Suggest options, don't ask open questions** - Guide, don't quiz
 4. **Read files only when needed** - Avoid information overload
 5. **Connect usage to implementation** - Learn by doing
+
+## 💾 **NEW: Learning Archive System**
+
+Automatically track, organize, and recall your learning journey!
+
+### What It Does
+
+- **Auto-saves learning sessions** - Every insight recorded as you learn
+- **Structured archives** - Organized by project with summaries, key points, progress
+- **Quick recall** - Search what you've learned across all projects
+- **Resume capability** - Continue exactly where you left off
+
+### Archive Structure
+
+Each learned project gets its own archive:
+
+```
+~/.claude/learning-archive/
+├── project-name/
+│   ├── summary.md          # Executive summary
+│   ├── key-points.md       # Organized knowledge
+│   ├── conversation.md     # Full dialogue history
+│   ├── progress.json       # Learning progress state
+│   └── next-steps.md       # Personalized next steps
+└── index.md                # Global learning index
+```
+
+### Usage
+
+**During learning**:
+```
+You: "Help me learn the react project"
+AI: "📁 Learning archive created for react
+     Your progress will be automatically saved."
+[Learning conversation happens]
+AI: "✅ Learning session archived!
+     📁 Location: ~/.claude/learning-archive/react/"
+```
+
+**Resume learning**:
+```
+You: "Resume learning react"
+AI: "📊 Previous Learning Session
+     Project: react
+     Last studied: 2 days ago
+     Progress: Stage 2 (deep exploration)
+     
+     You covered: hooks, virtual DOM, rendering
+     Next up: state management, performance
+     
+     Resume from where you left off?"
+```
+
+**Quick recall**:
+```
+You: "What have I learned about caching?"
+AI: "🔍 Found 'caching' in 3 projects:
+     1. claude-hud: File-based caching with 99% hit rate
+     2. react: Memoization and React.memo
+     3. next.js: ISR and revalidation strategies
+     
+     Deep dive into any?"
+```
+
+See `templates/learning-archive-system.md` for full documentation and `examples/learning-archive-example/` for a complete example.
+
+---
 
 ## 📚 Supported Project Types
 
