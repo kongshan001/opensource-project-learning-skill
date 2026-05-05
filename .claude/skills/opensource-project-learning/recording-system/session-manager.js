@@ -19,7 +19,34 @@ class SessionManager {
    * @returns {Object} 会话信息
    */
   initializeSession(sessionId, options = {}) {
-    const sessionPath = path.join(this.baseDir, sessionId);
+    // Input validation and security hardening
+    if (!sessionId || typeof sessionId !== 'string') {
+      throw new Error('Session ID must be a non-empty string');
+    }
+
+    // Sanitize sessionId to prevent directory traversal attacks
+    // Reject paths containing directory traversal components, absolute paths, or invalid characters
+    const sanitizedSessionId = sessionId.trim();
+    if (sanitizedSessionId === '') {
+      throw new Error('Session ID cannot be empty or whitespace only');
+    }
+
+    // Check for directory traversal attempts
+    if (sanitizedSessionId.includes('..') || sanitizedSessionId.includes('/') || sanitizedSessionId.includes('\\')) {
+      throw new Error('Session ID contains invalid characters (.., /, \\) that could enable directory traversal');
+    }
+
+    // Reject absolute paths (Windows and Unix)
+    if (sanitizedSessionId.includes(':') || sanitizedSessionId.startsWith('/')) {
+      throw new Error('Session ID cannot be an absolute path');
+    }
+
+    // Additional validation: only allow alphanumeric, hyphens, underscores, and dots
+    if (!/^[a-zA-Z0-9._-]+$/.test(sanitizedSessionId)) {
+      throw new Error('Session ID can only contain alphanumeric characters, hyphens, underscores, and dots');
+    }
+
+    const sessionPath = path.join(this.baseDir, sanitizedSessionId);
     const metaPath = path.join(sessionPath, 'meta.json');
     const progressPath = path.join(sessionPath, 'progress.json');
 
@@ -82,6 +109,10 @@ class SessionManager {
    * @returns {Array} 会话列表
    */
   listSessions() {
+    // NOTE: Using synchronous file operations for MVP simplicity.
+    // This is a CLI tool used sequentially, so blocking operations are acceptable.
+    // TODO: Consider refactoring to async/await with fs.promises for better scalability
+    // if this tool is used in a server context or with high concurrency.
     if (!fs.existsSync(this.sessionsIndexPath)) {
       return [];
     }
@@ -113,7 +144,22 @@ class SessionManager {
    * @returns {Object} 会话数据
    */
   loadSession(sessionId) {
-    const sessionPath = path.join(this.baseDir, sessionId);
+    // Apply same validation as initializeSession for consistency
+    if (!sessionId || typeof sessionId !== 'string') {
+      throw new Error('Session ID must be a non-empty string');
+    }
+
+    const sanitizedSessionId = sessionId.trim();
+    if (sanitizedSessionId === '') {
+      throw new Error('Session ID cannot be empty or whitespace only');
+    }
+
+    // Check for directory traversal attempts
+    if (sanitizedSessionId.includes('..') || sanitizedSessionId.includes('/') || sanitizedSessionId.includes('\\')) {
+      throw new Error('Session ID contains invalid characters (.., /, \\) that could enable directory traversal');
+    }
+
+    const sessionPath = path.join(this.baseDir, sanitizedSessionId);
     const metaPath = path.join(sessionPath, 'meta.json');
     const progressPath = path.join(sessionPath, 'progress.json');
 
@@ -189,6 +235,10 @@ class SessionManager {
    * @private
    */
   _fillTemplate(template, variables) {
+    // NOTE: Current implementation performs multiple passes over the string.
+    // This is acceptable for MVP with small templates.
+    // TODO: Optimize with single-pass regex if performance becomes an issue.
+    // Example optimization: Use /{{(SESSION_ID|PROJECT_NAME|...)}}/g with a replacement function.
     let result = template;
     for (const [key, value] of Object.entries(variables)) {
       const placeholder = `{{${key}}}`;
