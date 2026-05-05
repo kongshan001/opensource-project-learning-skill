@@ -9,6 +9,20 @@ description: 学习开源项目的系统化方法。适用于所有类型的开�
 
 这个 skill 提供了一个**对话式**的方法来学习任何开源项目。核心原则是：**每一步只给1-2个要点，然后停下来等待用户反馈**。
 
+## 📝 学习记录功能
+
+本技能支持自动记录学习进度，方便随时恢复和回顾。
+
+**功能特性**：
+- ✅ 自动保存学习进度（实时 + 里程碑）
+- ✅ 支持多会话管理
+- ✅ 智能恢复学习进度
+- ✅ 生成完整学习归档
+
+首次使用时会自动在项目目录下创建 `learning/` 目录并记录学习过程。
+
+---
+
 ## 🎯 **适用场景**
 
 - 用户想要学习一个新的开源项目
@@ -55,6 +69,35 @@ description: 学习开源项目的系统化方法。适用于所有类型的开�
 ---
 
 ## 📖 **对话式学习流程**
+
+#### **前置步骤：初始化学习会话** 🆕
+
+**[调用：会话管理器 - 初始化]**
+
+1. 检查是否存在 `learning/sessions.json`
+2. 如果存在历史记录，显示会话列表并询问用户意图
+3. 如果不存在或用户选择新建，提示输入会话主题
+4. 创建会话目录并初始化 `meta.json` 和 `progress.json`
+
+**示例对话：**
+```
+我: 检测到这是首次学习该项目。
+    
+为了方便后续记录和回顾，请为这次学习会话起个主题名称。
+    
+例如：'claude-hud-初探'、'理解上下文计算' 等
+
+用户: claude-hud-初探
+
+我: [创建 learning/claude-hud-初探/ 目录]
+    [初始化 meta.json 和 progress.json]
+    
+    记录已创建！开始学习...
+```
+
+**用户确认后，继续下面的流程...**
+
+---
 
 ### **阶段 0: 快速上手（实践优先）**
 
@@ -159,6 +202,29 @@ description: 学习开源项目的系统化方法。适用于所有类型的开�
 [等待用户回答]
 ```
 
+#### **阶段完成：记录里程碑** 🆕
+
+**[调用：实时记录器 - 保存进度]**
+
+1. 更新 `progress.json`，标记阶段0已完成
+2. 记录该阶段的关键知识点
+3. 询问用户："阶段0已完成！是否查看学习记录？"
+
+**示例对话：**
+```
+我: 阶段0已完成！🎉
+
+已记录：
+- 完成阶段：阶段0（快速上手）
+- 探索概念：项目安装、基本使用
+- 提问次数：3次
+
+想：
+1. 查看详细记录
+2. 继续学习阶段1
+3. 其他
+```
+
 ---
 
 ### **阶段 1: 初步了解（在运行之后）**
@@ -222,6 +288,29 @@ description: 学习开源项目的系统化方法。适用于所有类型的开�
 - 不要主动解释每个技术的作用
 - 只回答用户问的
 
+#### **阶段完成：记录里程碑** 🆕
+
+**[调用：实时记录器 - 保存进度]**
+
+1. 更新 `progress.json`，标记阶段1已完成
+2. 记录该阶段的关键知识点和用户兴趣点
+3. 询问用户："阶段1已完成！是否查看学习记录？"
+
+**示例对话：**
+```
+我: 阶段1已完成！🎉
+
+已记录：
+- 完成阶段：阶段1（初步了解）
+- 学习重点：设计理念、技术栈选择
+- 你的兴趣点：[用户关注的主题]
+
+想：
+1. 查看详细记录
+2. 继续学习阶段2
+3. 其他
+```
+
 ---
 
 ### **阶段 2: 探索代码结构**
@@ -264,6 +353,29 @@ description: 学习开源项目的系统化方法。适用于所有类型的开�
 - ❌ 不要分析整个代码架构
 - ❌ 不要给出完整的函数调用链
 
+#### **阶段完成：记录里程碑** 🆕
+
+**[调用：实时记录器 - 保存进度]**
+
+1. 更新 `progress.json`，标记阶段2已完成
+2. 记录该阶段探索的关键模块和代码文件
+3. 询问用户："阶段2已完成！是否查看学习记录？"
+
+**示例对话：**
+```
+我: 阶段2已完成！🎉
+
+已记录：
+- 完成阶段：阶段2（探索代码结构）
+- 探索模块：[模块1]、[模块2]
+- 查看文件：[文件列表]
+
+想：
+1. 查看详细记录
+2. 继续学习阶段3
+3. 其他
+```
+
 ---
 
 ### **阶段 3: 运行项目（可选）**
@@ -280,6 +392,30 @@ description: 学习开源项目的系统化方法。适用于所有类型的开�
 需要我帮你检查环境吗？
 
 [等待用户回答]
+```
+
+#### **阶段完成：记录里程碑** 🆕
+
+**[调用：实时记录器 - 保存进度]**
+
+1. 更新 `progress.json`，标记阶段3已完成
+2. 记录运行过程中的观察和问题解决
+3. 询问用户："阶段3已完成！是否查看学习记录？"
+
+**示例对话：**
+```
+我: 阶段3已完成！🎉
+
+已记录：
+- 完成阶段：阶段3（运行项目）
+- 运行结果：[成功/失败]
+- 遇到问题：[问题列表]
+- 解决方案：[方案列表]
+
+想：
+1. 查看详细记录
+2. 生成学习归档
+3. 其他
 ```
 
 ---
@@ -642,6 +778,564 @@ description: 学习开源项目的系统化方法。适用于所有类型的开�
 - 用户是否要求更多细节
 
 如果用户长时间不回复或表示"太复杂"，说明信息粒度可能需要调整。
+
+---
+
+## 📝 学习记录系统（独立模块）
+
+### **系统架构**
+
+学习记录系统由4个独立模块组成，可选择性调用：
+
+```
+learning/
+├── sessions.json           # 会话索引（会话管理器）
+├── [会话名称]/
+│   ├── meta.json          # 会话元数据（会话管理器）
+│   ├── progress.json      # 学习进度（实时记录器）
+│   ├── timeline.jsonl     # 时间线日志（实时记录器）
+│   ├── qa.jsonl           # 问答记录（实时记录器）
+│   └── archive.md         # 学习归档（归档生成器）
+```
+
+### **模块 1: 会话管理器**
+
+#### **功能**
+- 创建新学习会话
+- 列出历史会话
+- 恢复已有会话
+- 管理会话元数据
+
+#### **触发时机**
+- 用户开始学习新项目时
+- 用户中断后重新学习时
+
+#### **操作流程**
+
+**1. 初始化（首次学习）**
+```json
+// learning/sessions.json
+{
+  "sessions": [
+    {
+      "id": "claude-hud-初探",
+      "project": "claude-hud",
+      "created_at": "2026-05-05T10:00:00Z",
+      "last_updated": "2026-05-05T10:00:00Z",
+      "status": "active",
+      "stage": 0,
+      "total_questions": 0
+    }
+  ]
+}
+
+// learning/claude-hud-初探/meta.json
+{
+  "session_id": "claude-hud-初探",
+  "project": "claude-hud",
+  "project_url": "https://github.com/anthropics/claude-hud",
+  "created_at": "2026-05-05T10:00:00Z",
+  "last_updated": "2026-05-05T10:00:00Z",
+  "status": "active",
+  "stage": 0,
+  "total_questions": 0,
+  "user_goals": [],
+  "notes": ""
+}
+```
+
+**2. 恢复会话（已有历史记录）**
+```
+我: 检测到你之前学习过这个项目。
+
+历史会话：
+1. claude-hud-初探（2026-05-05，完成到阶段1）
+2. 理解上下文计算（2026-05-03，完成到阶段2）
+
+想：
+1. 继续某个会话
+2. 创建新会话
+
+用户: 继续 claude-hud-初探
+
+我: 好的，恢复会话...
+
+上次学习进度：
+- 完成阶段：阶段1（初步了解）
+- 学习重点：设计理念、技术栈选择
+- 提问次数：5次
+
+继续学习吗？
+```
+
+#### **关键函数**
+
+**创建会话**
+```python
+def create_session(project_name: str, session_name: str, project_url: str = "") -> dict:
+    """创建新学习会话"""
+    session_id = f"{project_name}-{session_name}"
+    timestamp = datetime.now().isoformat()
+
+    meta = {
+        "session_id": session_id,
+        "project": project_name,
+        "project_url": project_url,
+        "created_at": timestamp,
+        "last_updated": timestamp,
+        "status": "active",
+        "stage": 0,
+        "total_questions": 0,
+        "user_goals": [],
+        "notes": ""
+    }
+
+    # 创建目录和文件
+    os.makedirs(f"learning/{session_id}", exist_ok=True)
+
+    with open(f"learning/{session_id}/meta.json", "w") as f:
+        json.dump(meta, f, indent=2)
+
+    # 更新会话索引
+    update_sessions_index(meta)
+
+    return meta
+```
+
+**列出会话**
+```python
+def list_sessions(project_name: str = None) -> list:
+    """列出历史会话"""
+    if not os.path.exists("learning/sessions.json"):
+        return []
+
+    with open("learning/sessions.json", "r") as f:
+        data = json.load(f)
+
+    sessions = data.get("sessions", [])
+
+    if project_name:
+        sessions = [s for s in sessions if s["project"] == project_name]
+
+    return sorted(sessions, key=lambda x: x["last_updated"], reverse=True)
+```
+
+**恢复会话**
+```python
+def resume_session(session_id: str) -> dict:
+    """恢复学习会话"""
+    meta_path = f"learning/{session_id}/meta.json"
+
+    if not os.path.exists(meta_path):
+        raise FileNotFoundError(f"会话不存在: {session_id}")
+
+    with open(meta_path, "r") as f:
+        meta = json.load(f)
+
+    # 读取进度信息
+    progress_path = f"learning/{session_id}/progress.json"
+    if os.path.exists(progress_path):
+        with open(progress_path, "r") as f:
+            progress = json.load(f)
+    else:
+        progress = {"stage": 0, "completed_stages": []}
+
+    return {
+        "meta": meta,
+        "progress": progress
+    }
+```
+
+### **模块 2: 实时记录器**
+
+#### **功能**
+- 记录学习进度
+- 记录问答历史
+- 记录关键知识点
+- 生成时间线日志
+
+#### **触发时机**
+- 每个阶段完成后
+- 用户提出问题时
+- 用户表示理解时
+- 发现重要知识点时
+
+#### **数据结构**
+
+**progress.json**
+```json
+{
+  "stage": 1,
+  "completed_stages": [0],
+  "key_concepts": [
+    {
+      "stage": 0,
+      "concept": "上下文计算",
+      "understanding": "Claude使用token计算上下文使用量",
+      "timestamp": "2026-05-05T10:15:00Z"
+    }
+  ],
+  "user_interests": [
+    "状态栏渲染",
+    "性能优化"
+  ],
+  "questions_count": 5
+}
+```
+
+**qa.jsonl（问答记录）**
+```json
+{"timestamp": "2026-05-05T10:15:00Z", "stage": 0, "question": "这个项目是做什么的？", "answer": "实时显示Claude Code的上下文使用情况"}
+{"timestamp": "2026-05-05T10:20:00Z", "stage": 1, "question": "它怎么计算上下文的？", "answer": "通过监听API响应和token使用情况"}
+```
+
+**timeline.jsonl（时间线日志）**
+```json
+{"timestamp": "2026-05-05T10:00:00Z", "event": "session_start", "stage": 0}
+{"timestamp": "2026-05-05T10:15:00Z", "event": "question", "stage": 0, "content": "这个项目是做什么的？"}
+{"timestamp": "2026-05-05T10:30:00Z", "event": "stage_complete", "stage": 0, "duration": "30min"}
+```
+
+#### **关键函数**
+
+**记录阶段完成**
+```python
+def record_stage_complete(session_id: str, stage: int, key_concepts: list) -> dict:
+    """记录阶段完成"""
+    progress_path = f"learning/{session_id}/progress.json"
+
+    if os.path.exists(progress_path):
+        with open(progress_path, "r") as f:
+            progress = json.load(f)
+    else:
+        progress = {
+            "stage": stage,
+            "completed_stages": [],
+            "key_concepts": [],
+            "user_interests": [],
+            "questions_count": 0
+        }
+
+    # 更新进度
+    progress["stage"] = stage + 1
+    progress["completed_stages"].append(stage)
+
+    # 添加关键概念
+    for concept in key_concepts:
+        progress["key_concepts"].append({
+            "stage": stage,
+            "concept": concept["name"],
+            "understanding": concept["description"],
+            "timestamp": datetime.now().isoformat()
+        })
+
+    with open(progress_path, "w") as f:
+        json.dump(progress, f, indent=2)
+
+    # 记录到时间线
+    add_timeline_event(session_id, "stage_complete", {
+        "stage": stage,
+        "concepts_count": len(key_concepts)
+    })
+
+    return progress
+```
+
+**记录问答**
+```python
+def record_qa(session_id: str, stage: int, question: str, answer: str):
+    """记录问答"""
+    qa_path = f"learning/{session_id}/qa.jsonl"
+
+    entry = {
+        "timestamp": datetime.now().isoformat(),
+        "stage": stage,
+        "question": question,
+        "answer": answer
+    }
+
+    with open(qa_path, "a", encoding="utf-8") as f:
+        f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+
+    # 更新问题计数
+    progress_path = f"learning/{session_id}/progress.json"
+    with open(progress_path, "r") as f:
+        progress = json.load(f)
+
+    progress["questions_count"] += 1
+
+    with open(progress_path, "w") as f:
+        json.dump(progress, f, indent=2)
+
+    # 记录到时间线
+    add_timeline_event(session_id, "question", {
+        "stage": stage,
+        "content": question
+    })
+```
+
+**添加时间线事件**
+```python
+def add_timeline_event(session_id: str, event_type: str, data: dict):
+    """添加时间线事件"""
+    timeline_path = f"learning/{session_id}/timeline.jsonl"
+
+    entry = {
+        "timestamp": datetime.now().isoformat(),
+        "event": event_type,
+        **data
+    }
+
+    with open(timeline_path, "a", encoding="utf-8") as f:
+        f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+```
+
+### **模块 3: 归档生成器**
+
+#### **功能**
+- 生成学习总结报告
+- 整理关键知识点
+- 生成可分享的学习归档
+
+#### **触发时机**
+- 用户完成所有学习阶段
+- 用户主动请求生成归档
+- 用户想要分享学习成果
+
+#### **归档格式**
+
+**archive.md**
+```markdown
+# claude-hud 学习归档
+
+**学习时间**: 2026-05-05
+**学习会话**: claude-hud-初探
+**完成阶段**: 阶段0-2
+
+## 📊 学习统计
+
+- **学习时长**: 2小时
+- **完成阶段**: 3个（阶段0、1、2）
+- **提问次数**: 8次
+- **探索文件**: 5个
+
+## 🎯 关键知识点
+
+### 阶段0：快速上手
+- **上下文计算**: Claude使用token计算上下文使用量
+- **状态栏显示**: 实时显示上下文百分比
+
+### 阶段1：初步了解
+- **技术栈**: TypeScript + Node.js
+- **设计理念**: 简单、实时、可视化
+
+### 阶段2：代码结构
+- **入口文件**: src/index.ts
+- **核心模块**: context-tracker、hud-renderer
+
+## 💬 学习问答
+
+**Q: 这个项目是做什么的？**
+A: 实时显示Claude Code的上下文使用情况
+
+**Q: 它怎么计算上下文的？**
+A: 通过监听API响应和token使用情况
+
+## 📝 学习笔记
+
+[用户添加的笔记]
+
+## 🚀 下一步
+
+- [ ] 深入学习状态栏渲染原理
+- [ ] 尝试修改配置
+- [ ] 贡献代码
+
+---
+*由 Claude Code 学习记录系统自动生成*
+```
+
+#### **关键函数**
+
+**生成归档**
+```python
+def generate_archive(session_id: str) -> str:
+    """生成学习归档"""
+    # 读取元数据
+    with open(f"learning/{session_id}/meta.json", "r") as f:
+        meta = json.load(f)
+
+    # 读取进度
+    with open(f"learning/{session_id}/progress.json", "r") as f:
+        progress = json.load(f)
+
+    # 读取问答
+    qa_entries = []
+    qa_path = f"learning/{session_id}/qa.jsonl"
+    if os.path.exists(qa_path):
+        with open(qa_path, "r", encoding="utf-8") as f:
+            for line in f:
+                qa_entries.append(json.loads(line))
+
+    # 读取时间线
+    timeline_entries = []
+    timeline_path = f"learning/{session_id}/timeline.jsonl"
+    if os.path.exists(timeline_path):
+        with open(timeline_path, "r", encoding="utf-8") as f:
+            for line in f:
+                timeline_entries.append(json.loads(line))
+
+    # 计算学习时长
+    duration = calculate_duration(timeline_entries)
+
+    # 生成Markdown
+    archive = f"""# {meta['project']} 学习归档
+
+**学习时间**: {meta['created_at'][:10]}
+**学习会话**: {session_id}
+**完成阶段**: {', '.join(f'阶段{s}' for s in progress['completed_stages'])}
+
+## 📊 学习统计
+
+- **学习时长**: {duration}
+- **完成阶段**: {len(progress['completed_stages'])}个
+- **提问次数**: {progress['questions_count']}次
+- **探索文件**: {len([e for e in timeline_entries if e.get('event') == 'file_read'])}个
+
+## 🎯 关键知识点
+"""
+
+    # 按阶段分组知识点
+    concepts_by_stage = {}
+    for concept in progress['key_concepts']:
+        stage = concept['stage']
+        if stage not in concepts_by_stage:
+            concepts_by_stage[stage] = []
+        concepts_by_stage[stage].append(concept)
+
+    for stage, concepts in concepts_by_stage.items():
+        archive += f"\n### 阶段{stage}：{get_stage_name(stage)}\n"
+        for concept in concepts:
+            archive += f"- **{concept['concept']}**: {concept['understanding']}\n"
+
+    # 添加问答
+    archive += "\n## 💬 学习问答\n\n"
+    for qa in qa_entries[:10]:  # 最多显示10个
+        archive += f"**Q: {qa['question']}**\n"
+        archive += f"A: {qa['answer']}\n\n"
+
+    # 添加笔记
+    if meta.get('notes'):
+        archive += f"## 📝 学习笔记\n\n{meta['notes']}\n\n"
+
+    # 添加下一步
+    if progress.get('user_interests'):
+        archive += "## 🚀 下一步\n\n"
+        for interest in progress['user_interests']:
+            archive += f"- [ ] {interest}\n"
+
+    archive += "\n---\n*由 Claude Code 学习记录系统自动生成*\n"
+
+    # 保存归档
+    archive_path = f"learning/{session_id}/archive.md"
+    with open(archive_path, "w", encoding="utf-8") as f:
+        f.write(archive)
+
+    return archive_path
+```
+
+### **模块 4: 工具函数**
+
+#### **计算学习时长**
+```python
+def calculate_duration(timeline_entries: list) -> str:
+    """计算学习时长"""
+    if not timeline_entries:
+        return "0分钟"
+
+    start_time = datetime.fromisoformat(timeline_entries[0]['timestamp'])
+    end_time = datetime.fromisoformat(timeline_entries[-1]['timestamp'])
+
+    duration = end_time - start_time
+    total_minutes = int(duration.total_seconds() / 60)
+
+    if total_minutes < 60:
+        return f"{total_minutes}分钟"
+    else:
+        hours = total_minutes // 60
+        minutes = total_minutes % 60
+        return f"{hours}小时{minutes}分钟"
+```
+
+#### **获取阶段名称**
+```python
+def get_stage_name(stage: int) -> str:
+    """获取阶段名称"""
+    stage_names = {
+        0: "快速上手",
+        1: "初步了解",
+        2: "探索代码结构",
+        3: "运行项目"
+    }
+    return stage_names.get(stage, f"阶段{stage}")
+```
+
+### **使用示例**
+
+#### **完整流程**
+```
+用户: 我想学习 claude-hud 项目
+
+我: [调用会话管理器]
+    检测到这是首次学习该项目。
+    
+    为了方便后续记录和回顾，请为这次学习会话起个主题名称。
+    
+    例如：'claude-hud-初探'、'理解上下文计算' 等
+
+用户: claude-hud-初探
+
+我: [创建会话目录和文件]
+    记录已创建！开始学习...
+    
+    [开始阶段0学习...]
+
+[阶段0完成后...]
+
+我: [调用实时记录器 - 保存进度]
+    阶段0已完成！🎉
+    
+    已记录：
+    - 完成阶段：阶段0（快速上手）
+    - 探索概念：项目安装、基本使用
+    - 提问次数：3次
+    
+    想：
+    1. 查看详细记录
+    2. 继续学习阶段1
+    3. 其他
+
+用户: 继续
+
+[继续学习阶段1、2、3...]
+
+[所有阶段完成后...]
+
+我: [调用归档生成器]
+    恭喜！你已完成所有学习阶段！🎉
+    
+    正在生成学习归档...
+    
+    [生成 archive.md]
+    
+    归档已生成！包含：
+    - 学习统计
+    - 关键知识点
+    - 学习问答
+    - 你的笔记
+    
+    可以分享给他人或作为学习笔记保存。
+```
 
 ---
 
