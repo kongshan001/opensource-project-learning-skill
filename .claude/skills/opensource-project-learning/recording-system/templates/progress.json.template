@@ -1,0 +1,14 @@
+{
+  "currentStage": "stage0",
+  "stagesCompleted": [],
+  "stats": {
+    "totalQuestions": 0,
+    "filesExplored": 0,
+    "conceptsCovered": [],
+    "startTime": "{{START_TIME}}",
+    "lastUpdateTime": "{{LAST_UPDATE_TIME}}",
+    "totalTimeMinutes": 0
+  },
+  "lastTopic": "",
+  "nextSteps": []
+}

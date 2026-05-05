@@ -1,0 +1,13 @@
+{
+  "sessionId": "{{SESSION_ID}}",
+  "projectName": "{{PROJECT_NAME}}",
+  "projectPath": "{{PROJECT_PATH}}",
+  "projectUrl": "",
+  "createdAt": "{{CREATED_AT}}",
+  "lastModified": "{{LAST_MODIFIED}}",
+  "learningGoals": [],
+  "userBackground": {
+    "knownTechs": [],
+    "unknownTechs": []
+  }
+}
