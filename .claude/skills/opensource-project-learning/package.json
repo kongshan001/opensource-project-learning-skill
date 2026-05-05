@@ -1,0 +1,19 @@
+{
+  "name": "opensource-project-learning",
+  "version": "1.0.0",
+  "description": "恭喜！你已经成功创建了一个专门用于**从零开始学习开源项目**的 Claude Code skill。",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "jest": "^30.3.0"
+  }
+}
