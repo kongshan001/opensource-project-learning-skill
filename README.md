@@ -21,19 +21,65 @@ This skill provides a **dialogue-driven approach** to learning any open-source p
 
 ## 🚀 Quick Start
 
-### For Claude Code Users
+### Method 1: skills.sh CLI (Recommended) ⭐
 
-1. **Copy the skill file**
+The easiest way to install this skill:
+
+```bash
+npx skills add kongshan001/opensource-project-learning-skill
+```
+
+**What happens:**
+- Automatically downloads and installs the skill to your Claude Code skills directory
+- Works with multiple AI agents (Claude Code, Cursor, Codex, etc.)
+- No manual file copying required
+
+**Installation options:**
+```bash
+# Install globally (available across all projects)
+npx skills add kongshan001/opensource-project-learning-skill -g
+
+# Install to specific agents
+npx skills add kongshan001/opensource-project-learning-skill -a claude-code
+
+# List available skills before installing
+npx skills add kongshan001/opensource-project-learning-skill --list
+
+# Non-interactive installation (CI/CD friendly)
+npx skills add kongshan001/opensource-project-learning-skill -y
+```
+
+### Method 2: Manual Installation
+
+If you prefer manual installation or the CLI doesn't work:
+
+1. **Download the skill file**
+   ```bash
+   # Clone the repository
+   git clone https://github.com/kongshan001/opensource-project-learning-skill.git
+   cd opensource-project-learning-skill
+   ```
+
+2. **Copy the skill file**
    ```bash
    mkdir -p ~/.claude/skills/
-   cp SKILL.md ~/.claude/skills/opensource-project-learning.md
+   cp skills/opensource-project-learning/SKILL.md ~/.claude/skills/opensource-project-learning.md
    ```
 
-2. **Use it in your session**
-   ```
-   When you want to learn a new open-source project, just say:
-   "Help me learn the X project"
-   ```
+### Method 3: npm Package (Alternative)
+
+```bash
+npx opensource-project-learning-skill
+```
+
+### Using the Skill
+
+After installation, restart your Claude Code session and use it:
+
+```
+You: "Help me learn the X project"
+AI: [Starts guided learning session]
+```
 
 ### For Other AI Platforms
 
@@ -99,14 +145,18 @@ Ready to try?"
 [... and so on, with dialogue at every step]
 ```
 
-## 🛠️ Technical Details
-
-### Skill Structure
+## 🛠️ Repository Structure
 
 ```
 opensource-project-learning-skill/
 ├── README.md                      # This file
-├── SKILL.md                      # Complete skill specification
+├── skills/                        # Skills for skills.sh CLI
+│   └── opensource-project-learning/
+│       ├── SKILL.md              # Complete skill specification
+│       └── README.md             # Skill-specific documentation
+├── package.json                  # npm package configuration
+├── bin/
+│   └── install.js                # Installation script (npm method)
 ├── QUICKSTART.md                 # Quick start guide
 ├── CONTRIBUTING.md               # Contribution guidelines
 ├── LICENSE                       # MIT License
@@ -130,7 +180,7 @@ opensource-project-learning-skill/
 4. **Read files only when needed** - Avoid information overload
 5. **Connect usage to implementation** - Learn by doing
 
-## 💾 **NEW: Learning Archive System**
+## 💾 Learning Archive System
 
 Automatically track, organize, and recall your learning journey!
 
@@ -175,10 +225,10 @@ AI: "📊 Previous Learning Session
      Project: react
      Last studied: 2 days ago
      Progress: Stage 2 (deep exploration)
-     
+
      You covered: hooks, virtual DOM, rendering
      Next up: state management, performance
-     
+
      Resume from where you left off?"
 ```
 
@@ -189,7 +239,7 @@ AI: "🔍 Found 'caching' in 3 projects:
      1. claude-hud: File-based caching with 99% hit rate
      2. react: Memoization and React.memo
      3. next.js: ISR and revalidation strategies
-     
+
      Deep dive into any?"
 ```
 
@@ -256,6 +306,12 @@ By combining:
 - ✅ Technical depth (when the user is ready)
 
 It creates a learning environment that meets users where they are and grows with them.
+
+## 🔗 Links
+
+- **skills.sh**: https://skills.sh/kongshan001/opensource-project-learning-skill
+- **GitHub Repository**: https://github.com/kongshan001/opensource-project-learning-skill
+- **Report Issues**: https://github.com/kongshan001/opensource-project-learning-skill/issues
 
 ## 🙏 Acknowledgments
 

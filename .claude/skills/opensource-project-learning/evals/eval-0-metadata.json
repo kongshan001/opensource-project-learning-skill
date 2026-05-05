@@ -1,0 +1,43 @@
+{
+  "eval_id": 0,
+  "eval_name": "typescript-plugin-learning",
+  "prompt": "我想学习这个项目：D:\\\\vscode_proj\\\\claude-hud-demo\\\\claude-hud。请帮我从零开始，一步一步地理解这个项目是做什么的，它的架构是怎样的，以及核心功能是如何实现的。我不熟悉 TypeScript 和 Claude Code 插件开发，请详细解释相关概念。",
+  "assertions": [
+    {
+      "name": "provides_project_overview",
+      "description": "输出应包含项目概览，说明项目类型、主要功能和用途",
+      "check_type": "contains_keywords",
+      "keywords": ["Claude Code", "插件", "plugin", "statusline", "HUD"]
+    },
+    {
+      "name": "provides_executable_commands",
+      "description": "应提供用户可以执行的命令来探索项目（cat, ls, find 等）",
+      "check_type": "contains_commands",
+      "command_patterns": ["cat ", "ls ", "find ", "cd "]
+    },
+    {
+      "name": "explains_typescript_concepts",
+      "description": "应解释 TypeScript 相关概念，因为用户表示不熟悉",
+      "check_type": "contains_keywords",
+      "keywords": ["TypeScript", "类型", "interface", "type", "编译"]
+    },
+    {
+      "name": "explains_plugin_development",
+      "description": "应解释 Claude Code 插件开发概念",
+      "check_type": "contains_keywords",
+      "keywords": ["插件", "plugin", "命令", "command", "API"]
+    },
+    {
+      "name": "provides_learning_structure",
+      "description": "输出应有清晰的结构，如分阶段的学习路径或步骤",
+      "check_type": "has_structure",
+      "structure_indicators": ["第", "阶段", "步骤", "##", "###"]
+    },
+    {
+      "name": "asks_for_direction",
+      "description": "应询问用户想要深入学习的方向（阶段3的要求）",
+      "check_type": "contains_keywords",
+      "keywords": ["想要", "深入", "了解", "学习", "方向"]
+    }
+  ]
+}

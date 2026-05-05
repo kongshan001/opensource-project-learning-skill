@@ -1,0 +1,20 @@
+# Ignore everything except what's in package.json "files" field
+*
+
+# Except these files (which are included in package.json)
+!SKILL.md
+!bin/install.js
+!README.md
+!LICENSE
+!package.json
+
+# Explicitly ignore these
+templates/
+examples/
+*.sh
+ARCHIVE_GUIDE.md
+CONTRIBUTING.md
+FEATURE_COMPARISON.md
+QUICKSTART.md
+.git/
+.gitignore

@@ -1,0 +1,43 @@
+{
+  "eval_id": 2,
+  "eval_name": "legacy-project-maintenance",
+  "prompt": "我的老板让我维护一个老旧的 Python 项目，但我完全看不懂代码。项目在 /opt/legacy-service，里面有 requirements.txt 和一个 src 目录。请帮我系统性地学习这个项目，了解它的架构、数据流，以及如何安全地修改代码而不破坏现有功能。",
+  "assertions": [
+    {
+      "name": "provides_systematic_approach",
+      "description": "应提供系统性的学习方法",
+      "check_type": "has_structure",
+      "structure_indicators": ["第", "阶段", "步骤", "1.", "2.", "3."]
+    },
+    {
+      "name": "covers_testing_strategy",
+      "description": "应涵盖测试策略，因为用户关心安全修改代码",
+      "check_type": "contains_keywords",
+      "keywords": ["测试", "test", "安全", "修改", "不破坏"]
+    },
+    {
+      "name": "analyzes_architecture",
+      "description": "应分析项目架构和数据流",
+      "check_type": "contains_keywords",
+      "keywords": ["架构", "数据流", "模块", "组件"]
+    },
+    {
+      "name": "python_specific_guidance",
+      "description": "应提供 Python 项目特定的指导",
+      "check_type": "contains_keywords",
+      "keywords": ["Python", "requirements.txt", "pip", "import", "模块"]
+    },
+    {
+      "name": "legacy_project_considerations",
+      "description": "应考虑老旧项目的特殊注意事项",
+      "check_type": "contains_keywords",
+      "keywords": ["老旧", "legacy", "注意", "风险", "备份"]
+    },
+    {
+      "name": "provides_safe_modification_steps",
+      "description": "应提供安全修改代码的步骤",
+      "check_type": "contains_commands",
+      "command_patterns": ["测试", "test", "检查", "check", "备份", "backup"]
+    }
+  ]
+}

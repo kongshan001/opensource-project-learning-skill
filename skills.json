@@ -1,0 +1,27 @@
+{
+  "name": "opensource-project-learning-skill",
+  "description": "A conversational AI skill for systematically learning open-source projects",
+  "homepage": "https://github.com/kongshan001/opensource-project-learning-skill",
+  "repository": "https://github.com/kongshan001/opensource-project-learning-skill",
+  "skills": [
+    {
+      "name": "opensource-project-learning",
+      "description": "学习开源项目的系统化方法。适用于所有类型的开源项目（Web应用、后端服务、CLI工具、插件等）",
+      "path": "skills/opensource-project-learning/SKILL.md",
+      "homepage": "https://skills.sh/kongshan001/opensource-project-learning-skill/opensource-project-learning",
+      "tags": [
+        "learning",
+        "opensource",
+        "education",
+        "development",
+        "tutorial"
+      ],
+      "agents": [
+        "claude-code",
+        "codex",
+        "cursor",
+        "opencode"
+      ]
+    }
+  ]
+}
