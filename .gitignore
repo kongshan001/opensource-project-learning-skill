@@ -34,10 +34,9 @@ tmp/
 temp/
 *.tmp
 
-# Build artifacts (if any)
+# Node modules
+node_modules/
+
+# Build artifacts
 dist/
 *.tsbuildinfo
-
-demo_proj
-.playwright-mcp
-

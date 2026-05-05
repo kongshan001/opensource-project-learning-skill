@@ -1,7 +1,7 @@
 {
   "name": "opensource-project-learning-skill",
   "version": "1.0.0",
-  "description": "A conversational AI skill for systematically learning open-source projects. Supports installation via skills.sh CLI.",
+  "description": "A conversational AI skill for systematically learning open-source projects with Claude Code",
   "keywords": [
     "claude",
     "claude-code",
@@ -9,8 +9,7 @@
     "skill",
     "opensource",
     "learning",
-    "education",
-    "skills.sh"
+    "education"
   ],
   "author": "kongshan001",
   "license": "MIT",
@@ -23,16 +22,10 @@
   },
   "homepage": "https://github.com/kongshan001/opensource-project-learning-skill#readme",
   "files": [
-    "skills/",
-    "SKILL.md",
+    ".claude/skills/opensource-project-learning/",
     "README.md",
-    "LICENSE",
-    "skills.json"
+    "LICENSE"
   ],
-  "scripts": {
-    "install": "node bin/install.js",
-    "postinstall": "echo '✓ Skill installed successfully! Restart your Claude Code session to use it.'"
-  },
   "engines": {
     "node": ">=14.0.0"
   }

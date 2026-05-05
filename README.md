@@ -1,322 +1,117 @@
 # Open Source Project Learning Skill
 
-A conversational AI skill for systematically learning open-source projects. Step-by-step, user-paced exploration of any codebase.
+一个用于**系统化学习开源项目**的 Claude Code skill，通过对话式引导帮助你逐步掌握任何开源项目。
 
-## 🎯 What This Does
+## ✨ 核心特性
 
-This skill provides a **dialogue-driven approach** to learning any open-source project. Instead of overwhelming you with information, it guides you through:
+- **对话式学习**：每一步都等待你的反馈，按照自己的节奏学习
+- **实践优先**：先运行项目再理解原理，从实际使用中学习
+- **自适应深度**：根据你的兴趣和经验调整学习深度
+- **学习归档**：自动记录学习进度，支持断点续学
+- **通用适用**：适用于 Web 应用、后端服务、CLI 工具、插件等各类项目
 
-1. **Quick hands-on experience** - Run the project first to understand its value
-2. **Interactive exploration** - Learn at your own pace with 1-2 key points per step
-3. **Deep technical understanding** - When you're ready, dive into implementation details
+## 🚀 快速开始
 
-## ✨ Key Features
+### 安装
 
-- **Conversation-based**: Every step pauses for your feedback
-- **Usage-first philosophy**: Run projects before reading documentation
-- **Adaptive depth**: Adjusts to your experience level and interests
-- **Universal applicability**: Works with web apps, backend services, CLI tools, plugins, etc.
-- **🆕 Automatic learning archives**: Tracks your progress, saves key insights, enables resume capability
-- **🆕 Searchable knowledge base**: Quick recall of what you've learned across projects
-
-## 🚀 Quick Start
-
-### Method 1: skills.sh CLI (Recommended) ⭐
-
-The easiest way to install this skill:
+将 skill 文件复制到你的 Claude Code skills 目录：
 
 ```bash
-npx skills add kongshan001/opensource-project-learning-skill
+# 创建 skills 目录（如果不存在）
+mkdir -p ~/.claude/skills/
+
+# 复制 skill 文件
+cp .claude/skills/opensource-project-learning/SKILL.md ~/.claude/skills/opensource-project-learning.md
 ```
 
-**What happens:**
-- Automatically downloads and installs the skill to your Claude Code skills directory
-- Works with multiple AI agents (Claude Code, Cursor, Codex, etc.)
-- No manual file copying required
+### 使用
 
-**Installation options:**
-```bash
-# Install globally (available across all projects)
-npx skills add kongshan001/opensource-project-learning-skill -g
-
-# Install to specific agents
-npx skills add kongshan001/opensource-project-learning-skill -a claude-code
-
-# List available skills before installing
-npx skills add kongshan001/opensource-project-learning-skill --list
-
-# Non-interactive installation (CI/CD friendly)
-npx skills add kongshan001/opensource-project-learning-skill -y
-```
-
-### Method 2: Manual Installation
-
-If you prefer manual installation or the CLI doesn't work:
-
-1. **Download the skill file**
-   ```bash
-   # Clone the repository
-   git clone https://github.com/kongshan001/opensource-project-learning-skill.git
-   cd opensource-project-learning-skill
-   ```
-
-2. **Copy the skill file**
-   ```bash
-   mkdir -p ~/.claude/skills/
-   cp skills/opensource-project-learning/SKILL.md ~/.claude/skills/opensource-project-learning.md
-   ```
-
-### Method 3: npm Package (Alternative)
-
-```bash
-npx opensource-project-learning-skill
-```
-
-### Using the Skill
-
-After installation, restart your Claude Code session and use it:
+重启 Claude Code，然后开始学习：
 
 ```
-You: "Help me learn the X project"
-AI: [Starts guided learning session]
+你: "帮我学习 X 项目"
+AI: [启动引导式学习会话]
 ```
 
-### For Other AI Platforms
+## 📚 学习流程
 
-The `SKILL.md` file contains the complete prompt specification. You can adapt it to:
-- Claude API (with prompt caching)
-- Other AI assistants
-- Custom implementations
+### 阶段 0：快速上手（实践优先）
+- 安装并运行项目
+- 体验项目价值
+- 观察有趣的行为
 
-## 📖 How It Works
+### 阶段 1：初步了解
+- 阅读 README（有上下文后）
+- 理解设计理念
+- 识别核心功能
 
-### Learning Philosophy
+### 阶段 2：深入探索
+- 探索代码结构
+- 理解实现细节
+- 学习架构模式
 
-**Traditional Approach (❌):**
-- Read 50 pages of documentation → confused
-- Study architecture diagrams → overwhelmed
-- Try to understand code without context → give up
+## 🎯 核心原则
 
-**This Skill's Approach (✅):**
-- Run the project → see immediate value
-- Notice interesting behaviors → ask questions
-- Explore specific features → understand implementation
-- Build mental model gradually → sustainable learning
+1. **每次只给 1-2 个要点** - 避免信息过载
+2. **总是停下来等待反馈** - 用户控制节奏
+3. **提供建议选项** - 不要问开放式问题
+4. **只在需要时读取文件** - 避免信息过载
+5. **从使用到实现** - 通过实践学习
 
-### Three Learning Stages
-
-**Stage 0: Quick Hands-on**
-- Install and run the project
-- Experience its value firsthand
-- Observe interesting behaviors
-
-**Stage 1: Initial Understanding**
-- Read README with context
-- Understand core design decisions
-- Identify key features
-
-**Stage 2: Deep Exploration**
-- Explore code structure
-- Understand implementation details
-- Learn architectural patterns
-
-## 🎓 Example Usage
+## 📁 Skill 结构
 
 ```
-You: "Help me learn the claude-hud project"
-
-AI: "This is a Claude Code plugin that shows real-time context usage.
-Its core value is preventing context limit surprises.
-
-What interests you most:
-1. How to install and see it in action
-2. What problems it solves
-3. Other aspects"
-
-You: "1"
-
-AI: "Great! Here are the 3 steps:
-1. /plugin marketplace add jarrodwatts/claude-hud
-2. /plugin install claude-hud
-3. /claude-hud:setup
-
-Ready to try?"
-
-[... and so on, with dialogue at every step]
+.claude/skills/opensource-project-learning/
+├── SKILL.md                    # 完整的 skill 规范
+├── README.md                   # Skill 文档
+├── recording-system/           # 学习记录系统
+│   ├── session-manager.js      # 会话管理器
+│   ├── realtime-recorder.js    # 实时记录器
+│   ├── recovery-manager.js     # 恢复管理器
+│   └── templates/              # 用户模板
+├── templates/                  # 学习归档模板
+├── agents/                     # AI agent 配置
+├── scripts/                    # 辅助脚本
+└── tests/                      # 测试文件
 ```
 
-## 🛠️ Repository Structure
+## 💾 学习记录系统
 
-```
-opensource-project-learning-skill/
-├── README.md                      # This file
-├── skills/                        # Skills for skills.sh CLI
-│   └── opensource-project-learning/
-│       ├── SKILL.md              # Complete skill specification
-│       └── README.md             # Skill-specific documentation
-├── package.json                  # npm package configuration
-├── bin/
-│   └── install.js                # Installation script (npm method)
-├── QUICKSTART.md                 # Quick start guide
-├── CONTRIBUTING.md               # Contribution guidelines
-├── LICENSE                       # MIT License
-├── .gitignore                    # Git ignore rules
-├── templates/                    # Learning archive templates
-│   ├── learning-archive-system.md
-│   ├── archive-extension.md
-│   ├── summary-template.md
-│   ├── key-points-template.md
-│   └── progress-template.json
-└── examples/                     # Real learning examples
-    ├── claude-hud-learning-example.md
-    └── learning-archive-example/ # Complete archive from real session
-```
+自动记录你的学习旅程：
 
-### Key Principles
+- **自动保存** - 每个知识点都会被记录
+- **结构化归档** - 按项目组织的学习档案
+- **快速回忆** - 搜索你学过的所有内容
+- **断点续学** - 从上次停止的地方继续
 
-1. **One or two points per response** - Never overwhelm
-2. **Always pause for feedback** - User controls the pace
-3. **Suggest options, don't ask open questions** - Guide, don't quiz
-4. **Read files only when needed** - Avoid information overload
-5. **Connect usage to implementation** - Learn by doing
+## 📊 效果指标
 
-## 💾 Learning Archive System
+基于真实使用数据：
 
-Automatically track, organize, and recall your learning journey!
+| 指标 | 传统学习 | 本 Skill |
+|-----|---------|---------|
+| 首次价值时间 | 30-60 分钟 | 5-10 分钟 |
+| 用户留存率 | 40% | 85% |
+| 提问次数 | 2-3 次/会话 | 8-12 次/会话 |
+| "理解"回应 | 30% | 75% |
 
-### What It Does
+## 🤝 贡献
 
-- **Auto-saves learning sessions** - Every insight recorded as you learn
-- **Structured archives** - Organized by project with summaries, key points, progress
-- **Quick recall** - Search what you've learned across all projects
-- **Resume capability** - Continue exactly where you left off
+这个 skill 设计为**平台无关**和**可扩展**。如果你有改进建议：
 
-### Archive Structure
+1. 用真实项目测试你的改动
+2. 记录什么有效、什么无效
+3. 与社区分享你的学习成果
 
-Each learned project gets its own archive:
+## 📄 许可证
 
-```
-~/.claude/learning-archive/
-├── project-name/
-│   ├── summary.md          # Executive summary
-│   ├── key-points.md       # Organized knowledge
-│   ├── conversation.md     # Full dialogue history
-│   ├── progress.json       # Learning progress state
-│   └── next-steps.md       # Personalized next steps
-└── index.md                # Global learning index
-```
+MIT License - 详见 [LICENSE](LICENSE) 文件
 
-### Usage
+## 🔗 相关链接
 
-**During learning**:
-```
-You: "Help me learn the react project"
-AI: "📁 Learning archive created for react
-     Your progress will be automatically saved."
-[Learning conversation happens]
-AI: "✅ Learning session archived!
-     📁 Location: ~/.claude/learning-archive/react/"
-```
-
-**Resume learning**:
-```
-You: "Resume learning react"
-AI: "📊 Previous Learning Session
-     Project: react
-     Last studied: 2 days ago
-     Progress: Stage 2 (deep exploration)
-
-     You covered: hooks, virtual DOM, rendering
-     Next up: state management, performance
-
-     Resume from where you left off?"
-```
-
-**Quick recall**:
-```
-You: "What have I learned about caching?"
-AI: "🔍 Found 'caching' in 3 projects:
-     1. claude-hud: File-based caching with 99% hit rate
-     2. react: Memoization and React.memo
-     3. next.js: ISR and revalidation strategies
-
-     Deep dive into any?"
-```
-
-See `templates/learning-archive-system.md` for full documentation and `examples/learning-archive-example/` for a complete example.
+- **GitHub 仓库**: https://github.com/kongshan001/opensource-project-learning-skill
+- **问题反馈**: https://github.com/kongshan001/opensource-project-learning-skill/issues
 
 ---
 
-## 📚 Supported Project Types
-
-- ✅ Web applications (React, Vue, Angular, etc.)
-- ✅ Backend services (Node.js, Python, Go, Rust, etc.)
-- ✅ CLI tools (command-line interfaces)
-- ✅ Plugins and extensions
-- ✅ Libraries and frameworks
-- ✅ Desktop applications
-- ✅ Mobile applications
-- ✅ DevOps tools
-
-## 🤝 Contributing
-
-This skill is designed to be **platform-agnostic** and **extensible**. If you have improvements:
-
-1. Test your changes with real projects
-2. Document what works and what doesn't
-3. Share your learnings with the community
-
-## 📊 Effectiveness Metrics
-
-Based on real usage:
-
-| Metric | Traditional Learning | This Skill |
-|--------|-------------------|------------|
-| Time to first value | 30-60 minutes | 5-10 minutes |
-| User retention | 40% | 85% |
-| Questions asked | 2-3 per session | 8-12 per session |
-| "I understand" responses | 30% | 75% |
-
-## 🎯 Best Practices
-
-### For Users
-
-- **Be honest about your level** - Say "I'm new to X technology"
-- **Ask for clarification** - Say "I don't understand this part"
-- **Set time expectations** - Say "I only have 10 minutes" or "I want deep learning"
-
-### For AI Implementers
-
-- **Follow the skill exactly** - It's tested and optimized
-- **Don't skip the "run first" step** - It's critical for engagement
-- **Respect the 1-2 points rule** - Information overload kills learning
-- **Wait for user signals** - Don't proceed without feedback
-
-## 📄 License
-
-MIT License - See [LICENSE](LICENSE) file for details.
-
-## 🌟 Why This Matters
-
-Open-source projects are the backbone of modern software development, but learning them is unnecessarily hard. This skill makes it **accessible, enjoyable, and sustainable**.
-
-By combining:
-- ✅ Cognitive science (spaced repetition, active learning)
-- ✅ User experience (conversational UI, adaptive depth)
-- ✅ Technical depth (when the user is ready)
-
-It creates a learning environment that meets users where they are and grows with them.
-
-## 🔗 Links
-
-- **skills.sh**: https://skills.sh/kongshan001/opensource-project-learning-skill
-- **GitHub Repository**: https://github.com/kongshan001/opensource-project-learning-skill
-- **Report Issues**: https://github.com/kongshan001/opensource-project-learning-skill/issues
-
-## 🙏 Acknowledgments
-
-Developed through extensive testing with real users learning real projects. The dialogue-based approach emerged from observing what actually works, not from theory.
-
----
-
-**Made with ❤️ for the open-source community**
+**用 ❤️ 为开源社区打造**
