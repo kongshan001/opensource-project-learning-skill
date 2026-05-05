@@ -12,9 +12,29 @@ const path = require('path');
  */
 class RealtimeRecorder {
   constructor(sessionPath) {
-    this.sessionPath = sessionPath;
-    this.progressPath = path.join(sessionPath, 'progress.json');
-    this.conversationBufferPath = path.join(sessionPath, 'conversation-buffer.md');
+    // Validate sessionPath parameter
+    if (!sessionPath || typeof sessionPath !== 'string') {
+      throw new Error('Session path must be a non-empty string');
+    }
+
+    const trimmedPath = sessionPath.trim();
+    if (trimmedPath === '') {
+      throw new Error('Session path cannot be empty or whitespace only');
+    }
+
+    this.sessionPath = trimmedPath;
+    this.progressPath = path.join(this.sessionPath, 'progress.json');
+    this.conversationBufferPath = path.join(this.sessionPath, 'conversation-buffer.md');
+
+    // Validate that session directory exists
+    if (!fs.existsSync(this.sessionPath)) {
+      throw new Error(`Session directory does not exist: ${this.sessionPath}`);
+    }
+
+    // Validate that progress.json exists
+    if (!fs.existsSync(this.progressPath)) {
+      throw new Error(`Progress file not found at: ${this.progressPath}. Make sure the session is properly initialized.`);
+    }
   }
 
   /**
@@ -73,7 +93,11 @@ class RealtimeRecorder {
     progress.stats.lastUpdateTime = new Date().toISOString();
 
     // 保存更新后的进度
-    fs.writeFileSync(this.progressPath, JSON.stringify(progress, null, 2));
+    try {
+      fs.writeFileSync(this.progressPath, JSON.stringify(progress, null, 2));
+    } catch (error) {
+      throw new Error(`Failed to write progress file at ${this.progressPath}: ${error.message}`);
+    }
   }
 
   /**
@@ -98,7 +122,11 @@ class RealtimeRecorder {
     const entry = `### ${role} (${timestamp})\n\n${content}\n\n---\n\n`;
 
     // 追加到文件（如果不存在则创建）
-    fs.appendFileSync(this.conversationBufferPath, entry);
+    try {
+      fs.appendFileSync(this.conversationBufferPath, entry);
+    } catch (error) {
+      throw new Error(`Failed to append conversation to ${this.conversationBufferPath}: ${error.message}`);
+    }
   }
 
   /**
@@ -109,7 +137,11 @@ class RealtimeRecorder {
     let progress = this.loadProgress();
     progress.lastTopic = topic;
     progress.stats.lastUpdateTime = new Date().toISOString();
-    fs.writeFileSync(this.progressPath, JSON.stringify(progress, null, 2));
+    try {
+      fs.writeFileSync(this.progressPath, JSON.stringify(progress, null, 2));
+    } catch (error) {
+      throw new Error(`Failed to update last topic in ${this.progressPath}: ${error.message}`);
+    }
   }
 
   /**
@@ -118,9 +150,16 @@ class RealtimeRecorder {
    */
   addNextStep(step) {
     let progress = this.loadProgress();
-    progress.nextSteps.push(step);
+    // Check if step already exists to avoid duplicates
+    if (!progress.nextSteps.includes(step)) {
+      progress.nextSteps.push(step);
+    }
     progress.stats.lastUpdateTime = new Date().toISOString();
-    fs.writeFileSync(this.progressPath, JSON.stringify(progress, null, 2));
+    try {
+      fs.writeFileSync(this.progressPath, JSON.stringify(progress, null, 2));
+    } catch (error) {
+      throw new Error(`Failed to add next step to ${this.progressPath}: ${error.message}`);
+    }
   }
 
   /**
@@ -139,7 +178,11 @@ class RealtimeRecorder {
    */
   clearConversationBuffer() {
     if (fs.existsSync(this.conversationBufferPath)) {
-      fs.unlinkSync(this.conversationBufferPath);
+      try {
+        fs.unlinkSync(this.conversationBufferPath);
+      } catch (error) {
+        throw new Error(`Failed to clear conversation buffer at ${this.conversationBufferPath}: ${error.message}`);
+      }
     }
   }
 }
