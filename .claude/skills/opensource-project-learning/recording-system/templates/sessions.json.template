@@ -1,3 +1,11 @@
 {
-  "sessions": []
+  "sessions": [
+    {
+      "sessionId": "{{SESSION_ID}}",
+      "meta": "meta/{{SESSION_ID}}.json",
+      "progress": "progress/{{SESSION_ID}}.json",
+      "status": "active",
+      "createdAt": "{{CREATED_AT}}"
+    }
+  ]
 }

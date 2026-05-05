@@ -2,12 +2,12 @@
   "sessionId": "{{SESSION_ID}}",
   "projectName": "{{PROJECT_NAME}}",
   "projectPath": "{{PROJECT_PATH}}",
-  "projectUrl": "",
+  "projectUrl": "{{PROJECT_URL}}",
   "createdAt": "{{CREATED_AT}}",
   "lastModified": "{{LAST_MODIFIED}}",
-  "learningGoals": [],
+  "learningGoals": "{{LEARNING_GOALS}}",
   "userBackground": {
-    "knownTechs": [],
-    "unknownTechs": []
+    "knownTechs": "{{KNOWN_TECHS}}",
+    "unknownTechs": "{{UNKNOWN_TECHS}}"
   }
 }
