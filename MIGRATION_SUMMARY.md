@@ -63,12 +63,26 @@ git commit -m "Add skills.sh integration support
 - Add test script and documentation"
 
 # 推送到 GitHub
-git push origin main
+git push origin master
 ```
 
-### 第 2 步：测试安装
+**注意**: 当前更改在 `master` 分支，需要创建 PR 合并到 `main` 分支。
 
-推送后，测试从 GitHub 安装：
+### 第 2 步：创建 Pull Request
+
+由于更改在 `master` 分支，需要创建 PR 合并到 `main`：
+
+**方法 1：通过浏览器创建 PR**
+访问：https://github.com/kongshan001/opensource-project-learning-skill/compare/main...master
+
+**方法 2：使用 GitHub CLI**
+```bash
+gh pr create --base main --head master --title "Add skills.sh integration support"
+```
+
+### 第 3 步：测试安装
+
+PR 合并到 `main` 后，测试从 GitHub 安装：
 
 ```bash
 # 列出可用技能
@@ -81,7 +95,7 @@ npx skills add kongshan001/opensource-project-learning-skill
 npx skills list
 ```
 
-### 第 3 步：等待索引（自动）
+### 第 4 步：等待索引（自动）
 
 skills.sh 会自动索引公开的 GitHub 仓库，通常需要 24-48 小时。
 
