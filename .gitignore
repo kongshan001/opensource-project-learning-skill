@@ -37,3 +37,7 @@ temp/
 # Build artifacts (if any)
 dist/
 *.tsbuildinfo
+
+demo_proj
+.playwright-mcp
+
