@@ -14,37 +14,25 @@
 
 ### 安装
 
-**推荐方式：npx 一键安装**
-
 ```bash
-# 安装到当前项目（.claude/skills/）
-npx opensource-project-learning-skill add
+# 一键安装到当前项目（.claude/skills/）
+npx github:kongshan001/opensource-project-learning-skill add
 
 # 或全局安装（~/.claude/skills/）
-npx opensource-project-learning-skill add -g
+npx github:kongshan001/opensource-project-learning-skill add -g
 ```
 
-**手动安装**
-
-```bash
-# 克隆仓库
-git clone https://github.com/kongshan001/opensource-project-learning-skill.git
-cd opensource-project-learning-skill
-
-# 复制到你的 Claude Code skills 目录
-mkdir -p ~/.claude/skills/
-cp -r .claude/skills/opensource-project-learning ~/.claude/skills/
-```
+> npm 发布后可简化为 `npx opensource-project-learning-skill add`
 
 ### 其他命令
 
 ```bash
 # 查看安装状态
-npx opensource-project-learning-skill list
+npx github:kongshan001/opensource-project-learning-skill list
 
 # 卸载
-npx opensource-project-learning-skill remove       # 当前项目
-npx opensource-project-learning-skill remove -g    # 全局
+npx github:kongshan001/opensource-project-learning-skill remove       # 当前项目
+npx github:kongshan001/opensource-project-learning-skill remove -g    # 全局
 ```
 
 ### 使用
