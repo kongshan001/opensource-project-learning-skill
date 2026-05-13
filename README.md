@@ -15,24 +15,19 @@
 ### 安装
 
 ```bash
-# 一键安装到当前项目（.claude/skills/）
-npx github:kongshan001/opensource-project-learning-skill add
+# 安装到当前项目（.claude/skills/）
+npx opensource-project-learning-skill add
 
 # 或全局安装（~/.claude/skills/）
-npx github:kongshan001/opensource-project-learning-skill add -g
+npx opensource-project-learning-skill add -g
 ```
-
-> npm 发布后可简化为 `npx skills add`
 
 ### 其他命令
 
 ```bash
-# 查看安装状态
-npx github:kongshan001/opensource-project-learning-skill list
-
-# 卸载
-npx github:kongshan001/opensource-project-learning-skill remove       # 当前项目
-npx github:kongshan001/opensource-project-learning-skill remove -g    # 全局
+npx opensource-project-learning-skill list        # 查看安装状态
+npx opensource-project-learning-skill remove      # 卸载当前项目
+npx opensource-project-learning-skill remove -g   # 卸载全局
 ```
 
 ### 使用
