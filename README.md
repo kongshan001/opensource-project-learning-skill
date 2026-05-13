@@ -14,14 +14,37 @@
 
 ### 安装
 
-将 skill 文件复制到你的 Claude Code skills 目录：
+**推荐方式：npx 一键安装**
 
 ```bash
-# 创建 skills 目录（如果不存在）
-mkdir -p ~/.claude/skills/
+# 安装到当前项目（.claude/skills/）
+npx opensource-project-learning-skill add
 
-# 复制 skill 文件
-cp .claude/skills/opensource-project-learning/SKILL.md ~/.claude/skills/opensource-project-learning.md
+# 或全局安装（~/.claude/skills/）
+npx opensource-project-learning-skill add -g
+```
+
+**手动安装**
+
+```bash
+# 克隆仓库
+git clone https://github.com/kongshan001/opensource-project-learning-skill.git
+cd opensource-project-learning-skill
+
+# 复制到你的 Claude Code skills 目录
+mkdir -p ~/.claude/skills/
+cp -r .claude/skills/opensource-project-learning ~/.claude/skills/
+```
+
+### 其他命令
+
+```bash
+# 查看安装状态
+npx opensource-project-learning-skill list
+
+# 卸载
+npx opensource-project-learning-skill remove       # 当前项目
+npx opensource-project-learning-skill remove -g    # 全局
 ```
 
 ### 使用
