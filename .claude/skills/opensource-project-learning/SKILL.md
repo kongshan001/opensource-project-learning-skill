@@ -1340,3 +1340,46 @@ def get_stage_name(stage: int) -> str:
 ---
 
 通过这个对话式 skill，用户可以按照自己的节奏和兴趣方向学习开源项目，而不是被大量信息淹没。
+
+---
+
+## 🌐 浏览器交互式学习
+
+除了对话式学习，本 skill 还支持通过浏览器进行交互式学习。
+
+### 启动 Web 学习平台
+
+在项目目录下运行：
+
+```bash
+node .claude/skills/opensource-project-learning/web/server.js
+```
+
+可选参数：
+- `-p, --port <port>` — 指定端口（默认 3456）
+- `-d, --dir <path>` — 指定学习数据目录（默认 ./learning）
+
+然后在浏览器打开 `http://localhost:3456` 即可。
+
+### Web 学习平台功能
+
+1. **阶段导航** — 侧栏显示 4 个学习阶段，点击切换
+2. **对话交互** — 底部输入框提问，AI 导师实时回答
+3. **进度追踪** — 自动保存学习进度，支持断点续学
+4. **会话管理** — 支持多个学习会话，可随时切换
+
+### 集成方式
+
+也可以在代码中引用 WebServer：
+
+```javascript
+const WebServer = require('./web/server');
+
+const server = new WebServer({
+  port: 3456,
+  learningDir: './learning',
+  projectPath: '/path/to/project'
+});
+
+server.start();
+```

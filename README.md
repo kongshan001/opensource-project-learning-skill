@@ -70,6 +70,9 @@ AI: [启动引导式学习会话]
 .claude/skills/opensource-project-learning/
 ├── SKILL.md                    # 完整的 skill 规范
 ├── README.md                   # Skill 文档
+├── web/                        # 🆕 浏览器交互式学习平台
+│   ├── server.js               # Web 服务器（零依赖）
+│   └── index.html              # 学习界面（暗色主题 SPA）
 ├── recording-system/           # 学习记录系统
 │   ├── session-manager.js      # 会话管理器
 │   ├── realtime-recorder.js    # 实时记录器
@@ -80,6 +83,28 @@ AI: [启动引导式学习会话]
 ├── scripts/                    # 辅助脚本
 └── tests/                      # 测试文件
 ```
+
+## 🌐 浏览器交互式学习
+
+除了在 Claude Code 中对话式学习，还可以通过浏览器进行交互式学习：
+
+```bash
+# 启动 Web 学习平台
+node .claude/skills/opensource-project-learning/web/server.js
+
+# 指定端口
+node .claude/skills/opensource-project-learning/web/server.js -p 8080
+```
+
+打开 `http://localhost:3456` 即可看到学习界面。
+
+**功能特性**：
+- 🎨 暗色主题，沉浸式学习体验
+- 📊 阶段导航侧栏，实时进度条
+- 💬 对话式交互，与 AI 导师问答
+- 💾 自动保存进度，支持断点续学
+- 🔀 多会话管理，随时切换学习主题
+- 📦 零外部依赖，纯 Node.js 原生实现
 
 ## 💾 学习记录系统
 

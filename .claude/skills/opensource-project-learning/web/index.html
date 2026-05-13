@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>开源项目学习平台</title>
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --surface: #1a1a1a;
+    --surface2: #242424;
+    --border: #333;
+    --text: #e8e8e8;
+    --text2: #999;
+    --accent: #6366f1;
+    --accent2: #818cf8;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --red: #ef4444;
+    --blue: #3b82f6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'SF Pro', 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* Layout */
+  .app { display: flex; height: 100vh; }
+  .sidebar { width: 280px; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; }
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* Sidebar */
+  .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border); }
+  .sidebar-header h1 { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .sidebar-header h1 span { font-size: 20px; }
+  .sidebar-section { padding: 16px 12px; }
+  .sidebar-section h3 { font-size: 11px; text-transform: uppercase; color: var(--text2); margin-bottom: 8px; letter-spacing: 0.5px; }
+  .stage-list { list-style: none; }
+  .stage-item { padding: 10px 12px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; margin-bottom: 2px; transition: background 0.15s; font-size: 14px; }
+  .stage-item:hover { background: var(--surface2); }
+  .stage-item.active { background: var(--accent); color: white; }
+  .stage-item.completed .stage-dot { background: var(--green); }
+  .stage-item.active .stage-dot { background: white; }
+  .stage-item .stage-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+  .stage-item .stage-num { color: var(--text2); font-size: 12px; margin-left: auto; }
+
+  .session-info { padding: 16px; border-top: 1px solid var(--border); margin-top: auto; }
+  .session-info .name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .session-info .meta { font-size: 12px; color: var(--text2); }
+
+  /* Main content */
+  .topbar { padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .topbar h2 { font-size: 18px; font-weight: 600; }
+  .topbar-actions { display: flex; gap: 8px; }
+
+  .content { flex: 1; overflow-y: auto; padding: 24px; }
+  .chat-area { max-width: 800px; margin: 0 auto; }
+
+  /* Messages */
+  .msg { margin-bottom: 20px; }
+  .msg-bubble { padding: 14px 18px; border-radius: 16px; font-size: 14px; line-height: 1.7; max-width: 85%; }
+  .msg.ai .msg-bubble { background: var(--surface2); border-bottom-left-radius: 4px; }
+  .msg.user .msg-bubble { background: var(--accent); color: white; margin-left: auto; border-bottom-right-radius: 4px; }
+  .msg-label { font-size: 11px; color: var(--text2); margin-bottom: 4px; }
+  .msg.user .msg-label { text-align: right; }
+
+  /* Options */
+  .options { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+  .option-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 12px 16px; border-radius: 10px; cursor: pointer; font-size: 14px; text-align: left; transition: all 0.15s; }
+  .option-btn:hover { border-color: var(--accent); background: #2a2a3d; }
+
+  /* Input */
+  .input-bar { padding: 16px 24px; border-top: 1px solid var(--border); }
+  .input-wrap { max-width: 800px; margin: 0 auto; display: flex; gap: 8px; }
+  .input-wrap input { flex: 1; background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 12px 16px; border-radius: 10px; font-size: 14px; outline: none; }
+  .input-wrap input:focus { border-color: var(--accent); }
+  .input-wrap button { background: var(--accent); color: white; border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 500; }
+  .input-wrap button:hover { background: var(--accent2); }
+
+  /* Welcome screen */
+  .welcome { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 40px; }
+  .welcome h2 { font-size: 28px; margin-bottom: 8px; }
+  .welcome p { color: var(--text2); font-size: 16px; margin-bottom: 32px; max-width: 500px; }
+  .create-form { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; width: 100%; max-width: 420px; }
+  .create-form label { display: block; font-size: 12px; color: var(--text2); margin-bottom: 6px; margin-top: 16px; }
+  .create-form label:first-child { margin-top: 0; }
+  .create-form input { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 10px 14px; border-radius: 8px; font-size: 14px; outline: none; }
+  .create-form input:focus { border-color: var(--accent); }
+  .create-form button { width: 100%; margin-top: 20px; background: var(--accent); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: 500; }
+  .create-form button:hover { background: var(--accent2); }
+
+  .session-list { width: 100%; max-width: 420px; margin-top: 20px; }
+  .session-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin-bottom: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .session-item:hover { border-color: var(--accent); }
+  .session-item .s-name { font-size: 14px; font-weight: 500; }
+  .session-item .s-stage { font-size: 12px; color: var(--text2); }
+
+  /* Progress bar */
+  .progress-bar { height: 3px; background: var(--surface2); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); transition: width 0.3s; }
+
+  /* Badge */
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; }
+  .badge.green { background: #16a34a22; color: var(--green); }
+  .badge.yellow { background: #ca8a0422; color: var(--yellow); }
+  .badge.blue { background: #2563eb22; color: var(--blue); }
+
+  /* Code blocks */
+  .msg-bubble code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 4px; font-family: 'SF Mono', monospace; font-size: 13px; }
+  .msg-bubble pre { background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; overflow-x: auto; margin: 8px 0; }
+  .msg-bubble pre code { background: none; padding: 0; }
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+
+<script>
+const API = '';
+const STAGES = [
+  { id: 0, name: '快速上手', icon: '🚀', desc: '安装并运行项目，从实践中理解价值' },
+  { id: 1, name: '初步了解', icon: '📖', desc: '阅读 README，理解设计理念' },
+  { id: 2, name: '探索代码', icon: '🔍', desc: '了解项目结构与核心模块' },
+  { id: 3, name: '深入实现', icon: '⚙️', desc: '深入特定模块的实现细节' },
+];
+
+// State
+let state = {
+  view: 'welcome', // welcome | learning
+  sessions: [],
+  currentSession: null,
+  sessionData: null,
+  currentStage: 0,
+  messages: [],
+  loading: false,
+  projectInfo: null,
+};
+
+const app = document.getElementById('app');
+
+// ── API ──────────────────────────────────────────────────────────────────────
+
+async function api(path, opts = {}) {
+  const res = await fetch(API + path, {
+    headers: { 'Content-Type': 'application/json' },
+    ...opts,
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
+  });
+  return res.json();
+}
+
+// ── Render ───────────────────────────────────────────────────────────────────
+
+function render() {
+  if (state.view === 'welcome') {
+    renderWelcome();
+  } else {
+    renderLearning();
+  }
+}
+
+function renderWelcome() {
+  const sessionItems = state.sessions.map(s => `
+    <div class="session-item" onclick="loadSession('${s.id}')">
+      <div>
+        <div class="s-name">${s.project}</div>
+        <div class="s-stage">阶段 ${s.stage} · ${new Date(s.last_updated).toLocaleDateString()}</div>
+      </div>
+      <span class="badge ${s.status === 'active' ? 'green' : 'yellow'}">${s.status === 'active' ? '进行中' : '已完成'}</span>
+    </div>
+  `).join('');
+
+  app.innerHTML = `
+    <div class="welcome">
+      <h2>🎓 开源项目学习平台</h2>
+      <p>通过对话式引导，逐步掌握任何开源项目。先运行、再理解、后深入。</p>
+      ${state.projectInfo ? `<p style="font-size:13px;color:var(--text2);margin-bottom:24px">当前项目: <strong style="color:var(--text)">${state.projectInfo.name}</strong> · ${state.projectInfo.fileCount} 个文件</p>` : ''}
+      <div class="create-form">
+        <label>项目名称</label>
+        <input id="inp-project" placeholder="如: react, vue, next.js" value="${state.projectInfo?.name || ''}">
+        <label>学习主题</label>
+        <input id="inp-session" placeholder="如: 初探、架构理解、核心模块">
+        <label>项目地址 (可选)</label>
+        <input id="inp-url" placeholder="https://github.com/...">
+        <button onclick="createAndStart()">开始学习</button>
+      </div>
+      ${state.sessions.length ? `
+        <div class="session-list">
+          <h3 style="font-size:12px;color:var(--text2);margin-bottom:8px">历史会话</h3>
+          ${sessionItems}
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+function renderLearning() {
+  const stageItems = STAGES.map(s => {
+    const completed = state.sessionData?.progress?.completed_stages?.includes(s.id);
+    const active = state.currentStage === s.id;
+    return `
+      <div class="stage-item ${active ? 'active' : ''} ${completed ? 'completed' : ''}" onclick="switchStage(${s.id})">
+        <div class="stage-dot"></div>
+        <span>${s.icon} ${s.name}</span>
+        <span class="stage-num">${s.id}</span>
+      </div>
+    `;
+  }).join('');
+
+  const progressPercent = ((state.sessionData?.progress?.completed_stages?.length || 0) / STAGES.length * 100);
+
+  const msgs = state.messages.map(m => `
+    <div class="msg ${m.role}">
+      <div class="msg-label">${m.role === 'ai' ? '🤖 AI 导师' : '你'}</div>
+      <div class="msg-bubble">${formatMsg(m.content)}</div>
+    </div>
+  `).join('');
+
+  app.innerHTML = `
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h1><span>🎓</span> 学习平台</h1>
+        <div class="progress-bar" style="margin-top:12px"><div class="progress-fill" style="width:${progressPercent}%"></div></div>
+      </div>
+      <div class="sidebar-section">
+        <h3>学习阶段</h3>
+        <ul class="stage-list">${stageItems}</ul>
+      </div>
+      <div class="session-info">
+        <div class="name">${state.currentSession}</div>
+        <div class="meta">已完成 ${state.sessionData?.progress?.completed_stages?.length || 0}/${STAGES.length} 阶段 · ${state.sessionData?.progress?.questions_count || 0} 个问题</div>
+        <div style="margin-top:10px"><button style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;cursor:pointer;font-size:12px;width:100%" onclick="backToHome()">← 返回首页</button></div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="topbar">
+        <h2>${STAGES[state.currentStage]?.icon} ${STAGES[state.currentStage]?.name}</h2>
+        <div class="topbar-actions">
+          <button class="option-btn" style="padding:6px 14px;font-size:13px" onclick="completeStage()">✅ 完成当前阶段</button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="chat-area" id="chat-area">
+          ${msgs}
+          ${state.loading ? '<div class="msg ai"><div class="msg-bubble">思考中...</div></div>' : ''}
+        </div>
+      </div>
+      <div class="input-bar">
+        <div class="input-wrap">
+          <input id="chat-input" placeholder="输入你的问题或想法..." onkeydown="if(event.key==='Enter')sendChat()">
+          <button onclick="sendChat()">发送</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Auto scroll
+  const chatArea = document.getElementById('chat-area');
+  if (chatArea) chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function formatMsg(text) {
+  // Basic markdown: code, bold, newlines
+  return text
+    .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+}
+
+// ── Actions ──────────────────────────────────────────────────────────────────
+
+async function init() {
+  const [status, sessionsData, projectData] = await Promise.all([
+    api('/api/status').catch(() => null),
+    api('/api/sessions').catch(() => ({ sessions: [] })),
+    api('/api/project').catch(() => null),
+  ]);
+  state.sessions = sessionsData.sessions || [];
+  state.projectInfo = projectData;
+  render();
+}
+
+async function createAndStart() {
+  const projectName = document.getElementById('inp-project').value.trim();
+  const sessionName = document.getElementById('inp-session').value.trim() || `${projectName}-学习`;
+  const projectUrl = document.getElementById('inp-url').value.trim();
+
+  if (!projectName) return;
+
+  const result = await api('/api/sessions', {
+    method: 'POST',
+    body: { projectName, sessionName, projectUrl },
+  });
+
+  if (result.success) {
+    state.currentSession = sessionName;
+    state.currentStage = 0;
+    state.messages = [
+      {
+        role: 'ai',
+        content: `欢迎学习 **${projectName}**！🎓\n\n我们将通过 4 个阶段系统地学习这个项目：\n\n1. 🚀 **快速上手** — 先把项目跑起来\n2. 📖 **初步了解** — 理解设计理念\n3. 🔍 **探索代码** — 了解项目结构\n4. ⚙️ **深入实现** — 深入核心模块\n\n让我们从 **阶段0：快速上手** 开始！\n\n你想先：\n• 了解如何安装运行这个项目\n• 先看看它能做什么\n• 直接看代码`,
+      },
+    ];
+    state.view = 'learning';
+    await loadSessionData();
+    render();
+  }
+}
+
+async function loadSession(sessionId) {
+  state.currentSession = sessionId;
+  state.view = 'learning';
+  await loadSessionData();
+
+  // Rebuild messages from Q&A history
+  state.messages = [];
+  if (state.sessionData?.qa?.length) {
+    for (const qa of state.sessionData.qa) {
+      state.messages.push({ role: 'user', content: qa.question });
+      if (qa.answer) state.messages.push({ role: 'ai', content: qa.answer });
+    }
+  }
+  state.messages.push({
+    role: 'ai',
+    content: `欢迎回来！你上次学习到了 **阶段${state.sessionData?.progress?.stage || 0}**。\n\n继续学习吗？有什么想问的？`,
+  });
+  state.currentStage = state.sessionData?.progress?.stage || 0;
+  render();
+}
+
+async function loadSessionData() {
+  state.sessionData = await api(`/api/sessions/${state.currentSession}`);
+}
+
+async function switchStage(stageId) {
+  state.currentStage = stageId;
+  const stage = STAGES[stageId];
+  state.messages.push({
+    role: 'ai',
+    content: `## ${stage.icon} ${stage.name}\n\n${stage.desc}\n\n你想从哪里开始？`,
+  });
+  render();
+}
+
+async function completeStage() {
+  if (!state.currentSession) return;
+  const result = await api(`/api/sessions/${state.currentSession}/stage`, {
+    method: 'POST',
+    body: { concepts: [{ name: STAGES[state.currentStage].name, description: '阶段学习完成' }] },
+  });
+  if (result.success) {
+    state.messages.push({
+      role: 'ai',
+      content: `🎉 阶段${state.currentStage}完成！\n\n${result.newStage < STAGES.length ? `准备好进入 **${STAGES[result.newStage].name}** 了吗？` : '恭喜！所有阶段已完成！'}`,
+    });
+    state.currentStage = result.newStage;
+    await loadSessionData();
+    render();
+  }
+}
+
+async function sendChat() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text || !state.currentSession) return;
+
+  state.messages.push({ role: 'user', content: text });
+  input.value = '';
+  state.loading = true;
+  render();
+
+  // Save Q&A
+  await api(`/api/sessions/${state.currentSession}/chat`, {
+    method: 'POST',
+    body: { question: text },
+  });
+
+  // Simulate AI response (in real use, Claude Code would handle this)
+  setTimeout(() => {
+    const responses = [
+      `好问题！关于"${text}"：\n\n这涉及到项目的核心设计。让我从几个方面来解释：\n\n1. **设计动机** — 解决什么问题\n2. **实现方式** — 怎么做的\n3. **关键权衡** — 为什么这样做\n\n想深入了解哪个方面？`,
+      `"${text}"是个很好的切入点。\n\n从代码来看，这个部分主要做了以下几件事：\n\n• 模块化拆分\n• 接口抽象\n• 错误处理\n\n要我展示相关的代码片段吗？`,
+      `关于"${text}"：\n\n这个设计很有意思。它采用了经典的策略模式，把不同的处理逻辑解耦开了。\n\n核心代码大约50行，逻辑很清晰。想看具体实现吗？`,
+    ];
+    const response = responses[Math.floor(Math.random() * responses.length)];
+    state.messages.push({ role: 'ai', content: response });
+    state.loading = false;
+    render();
+  }, 800);
+}
+
+function backToHome() {
+  state.view = 'welcome';
+  state.currentSession = null;
+  state.sessionData = null;
+  state.messages = [];
+  init();
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
