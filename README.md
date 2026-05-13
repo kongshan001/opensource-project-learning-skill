@@ -15,19 +15,19 @@
 ### 安装
 
 ```bash
-# 安装到当前项目（.claude/skills/）
-npx skills add kongshan001/opensource-project-learning-skill
+# 安装到当前项目
+npx skills add kongshan001/opensource-project-learning-skill -a claude-code
 
-# 或全局安装（~/.claude/skills/）
-npx skills add kongshan001/opensource-project-learning-skill -g
+# 或全局安装
+npx skills add kongshan001/opensource-project-learning-skill -a claude-code -g
 ```
 
 ### 其他命令
 
 ```bash
-npx skills list                                        # 查看已安装的 skill
-npx skills remove opensource-project-learning           # 卸载
-npx skills remove opensource-project-learning -g        # 卸载全局
+npx skills list                                    # 查看已安装的 skill
+npx skills update                                  # 更新到最新版本
+npx skills remove opensource-project-learning      # 卸载
 ```
 
 ### 使用
