@@ -4,10 +4,10 @@
  * opensource-project-learning-skill CLI
  *
  * Usage:
- *   npx opensource-project-learning-skill add    - Install skill to current project
- *   npx opensource-project-learning-skill add -g  - Install skill globally (~/.claude/skills/)
- *   npx opensource-project-learning-skill remove  - Remove skill from current project
- *   npx opensource-project-learning-skill list    - Show installed skills info
+ *   npx skills add    - Install skill to current project
+ *   npx skills add -g  - Install skill globally (~/.claude/skills/)
+ *   npx skills remove  - Remove skill from current project
+ *   npx skills list    - Show installed skills info
  */
 
 const fs = require("fs");
@@ -16,11 +16,11 @@ const path = require("path");
 // ── helpers ──────────────────────────────────────────────────────────────────
 
 function log(msg) {
-  console.log(`[opensource-project-learning] ${msg}`);
+  console.log(`[skills] ${msg}`);
 }
 
 function err(msg) {
-  console.error(`[opensource-project-learning] ❌ ${msg}`);
+  console.error(`[skills] ❌ ${msg}`);
 }
 
 function getSkillSourceDir() {
@@ -170,14 +170,14 @@ switch (command) {
   case "--help":
   case "-h":
     console.log(`
-opensource-project-learning-skill v${require("./package.json").version}
+skills v${require("./package.json").version}
 
 Usage:
-  npx opensource-project-learning-skill add          Install skill to current project
-  npx opensource-project-learning-skill add -g       Install skill globally
-  npx opensource-project-learning-skill remove       Remove from current project
-  npx opensource-project-learning-skill remove -g    Remove globally
-  npx opensource-project-learning-skill list         Show installation status
+  npx github:kongshan001/opensource-project-learning-skill add        Install skill to current project
+  npx github:kongshan001/opensource-project-learning-skill add -g     Install skill globally
+  npx github:kongshan001/opensource-project-learning-skill remove     Remove from current project
+  npx github:kongshan001/opensource-project-learning-skill remove -g  Remove globally
+  npx github:kongshan001/opensource-project-learning-skill list       Show installation status
 
 After installation, open Claude Code and start learning any open-source project!
 `);

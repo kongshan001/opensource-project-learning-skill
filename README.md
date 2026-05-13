@@ -22,7 +22,7 @@ npx github:kongshan001/opensource-project-learning-skill add
 npx github:kongshan001/opensource-project-learning-skill add -g
 ```
 
-> npm 发布后可简化为 `npx opensource-project-learning-skill add`
+> npm 发布后可简化为 `npx skills add`
 
 ### 其他命令
 

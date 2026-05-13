@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/kongshan001/opensource-project-learning-skill#readme",
   "bin": {
-    "opensource-project-learning-skill": "./cli.js"
+    "skills": "./cli.js"
   },
   "files": [
     "cli.js",
